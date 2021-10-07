@@ -96,34 +96,45 @@ resource "aws_lb_target_group" "default" {
     var.tg_tags,
   )
 }
-
 resource "aws_lb_listener_rule" "main" {
-  count        = length(var.listener_conditions)
+  for_each = var.listener_rules
   listener_arn = aws_lb_listener.main.arn
 
-  priority = count.index + 1
+  priority = each.key
 
   action {
     type             = "forward"
-    target_group_arn = local.target_group_arns[var.listener_target_group_idx[count.index]]
+    target_group_arn = aws_lb_target_group.default.arn
   }
 
   dynamic "condition" {
-    for_each = var.listener_conditions[count.index]
+  # each.value["conditions"] here contains a list of conditions, e.g.
+  # [{
+  #     "field"  = "host-header"
+  #     "values" = ["m.traveloka.com"]
+  #   },
+  #   {
+  #     "field"  = "path-pattern"
+  #     "values" = ["/frontend/"]
+  # }]
+    for_each = each.value["conditions"]
     content {
       dynamic "host_header" {
         for_each = condition.value.field == "host-header" ? [condition.value.field] : []
         content {
           values = condition.value.values
         }
-
       }
-
       dynamic "path_pattern" {
         for_each = condition.value.field == "path-pattern" ? [condition.value.field] : []
         content {
           values = condition.value.values
-
+        }
+      }
+      dynamic "source_ip" {
+        for_each = condition.value.field == "source-ip" ? [condition.value.field] : []
+        content {
+          values = condition.value.values
         }
       }
     }

@@ -7,7 +7,7 @@ locals {
   service_name   = "${local.product_domain}ops"
   vpc_id         = "vpc-123abc"
 
-  frontend_condition = [
+  frontend_conditions = [
     {
       "field"  = "host-header"
       "values" = ["m.traveloka.com"]
@@ -18,14 +18,14 @@ locals {
     },
   ]
 
-  backend_canary_condition = [
+  backend_canary_conditions = [
     {
       "field"  = "path-pattern"
       "values" = ["/canary/"]
     },
   ]
 
-  backend_default_condition = [
+  backend_default_conditions = [
     {
       "field"  = "host-header"
       "values" = ["fpr.traveloka.com"]
@@ -127,13 +127,10 @@ module "alb-single-listener" {
   lb_security_groups       = ["sg-123abc"]
   lb_subnet_ids            = ["subnet-123abc", "subnet-456def", "subnet-789ghi", ]
 
-  listener_conditions = tolist([local.frontend_condition, local.backend_canary_condition, local.backend_default_condition])
-  target_group_arns = [
-    "${aws_lb_target_group.frontend.arn}",
-    "${aws_lb_target_group.backend-canary.arn}",
-  ]
-
-  listener_target_group_idx = [1, 2, 0]
+  listener_rules = {
+    1 = {target_group_arn=aws_lb_target_group.frontend.arn, conditions=local.frontend_conditions},
+    10 = {target_group_arn=null, conditions=local.backend_default_conditions},
+    99 = {target_group_arn=aws_lb_target_group.backend-canary.arn, conditions=local.backend_canary_conditions},
+  }
   vpc_id                    = "${local.vpc_id}"
 }
-
