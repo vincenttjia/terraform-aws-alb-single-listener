@@ -25,8 +25,8 @@ module "random_tg" {
 }
 
 locals {
-  lb_name           = var.lb_name == "" ? module.random_lb.name : var.lb_name
-  tg_name           = var.tg_name == "" ? module.random_tg.name : var.tg_name
+  lb_name = var.lb_name == "" ? module.random_lb.name : var.lb_name
+  tg_name = var.tg_name == "" ? module.random_tg.name : var.tg_name
 }
 
 locals {

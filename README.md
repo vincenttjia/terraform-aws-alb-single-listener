@@ -80,15 +80,12 @@ No requirements.
 | <a name="input_lb_subnet_ids"></a> [lb\_subnet\_ids](#input\_lb\_subnet\_ids) | List of subnet IDs of the LB | `list(string)` | n/a | yes |
 | <a name="input_lb_tags"></a> [lb\_tags](#input\_lb\_tags) | The additional LB tags that will be merged over the default tags | `map(string)` | `{}` | no |
 | <a name="input_listener_certificate_arn"></a> [listener\_certificate\_arn](#input\_listener\_certificate\_arn) | The LB listener's certificate ARN | `string` | n/a | yes |
-| <a name="input_listener_conditions"></a> [listener\_conditions](#input\_listener\_conditions) | List of conditions (https://www.terraform.io/docs/providers/aws/r/lb_listener_rule.html#condition) for the listener rules. A rule can have either 1 or 2 conditions. The rule's order will be its priority, i.e. the first is the highest | `list(list(object({ field = string, values = list(string) })))` | `[]` | no |
 | <a name="input_listener_port"></a> [listener\_port](#input\_listener\_port) | The LB listener's port | `string` | `443` | no |
 | <a name="input_listener_protocol"></a> [listener\_protocol](#input\_listener\_protocol) | The LB listener's protocol | `string` | `"HTTPS"` | no |
-| <a name ="input_listener_rules"></a>  [listener\_rules](#input\_listener\_rules)| A map of listener rules for the LB: priority --> {target_group_arn:'', conditions:[]}. `target_group_arn:null` means the built-in target group | `list` | `[]` | no |
+| <a name="input_listener_rules"></a> [listener\_rules](#input\_listener\_rules) | A map of listener rules for the LB: priority --> {target\_group\_arn:'', conditions:[]}. 'target\_group\_arn:null' means the built-in target group | `map` | `{}` | no |
 | <a name="input_listener_ssl_policy"></a> [listener\_ssl\_policy](#input\_listener\_ssl\_policy) | The LB listener's SSL policy | `string` | `"ELBSecurityPolicy-2016-08"` | no |
-| <a name="input_listener_target_group_idx"></a> [listener\_target\_group\_idx](#input\_listener\_target\_group\_idx) | Indexes, starting from 0, of the `target_group_arns` variable that the listener rules will use when choosing target groups. '0' means the default target group | `list(string)` | `[]` | no |
 | <a name="input_product_domain"></a> [product\_domain](#input\_product\_domain) | Abbreviation of the product domain the created resources belong to | `string` | n/a | yes |
 | <a name="input_service_name"></a> [service\_name](#input\_service\_name) | The service name that will be used in tags and resources default name | `string` | n/a | yes |
-| <a name="input_target_group_arns"></a> [target\_group\_arns](#input\_target\_group\_arns) | A list of target group arns, will be used by listener rules using `listener_target_group_idx` variable | `list(string)` | `[]` | no |
 | <a name="input_tg_deregistration_delay"></a> [tg\_deregistration\_delay](#input\_tg\_deregistration\_delay) | The default target group's deregistration delay | `string` | `300` | no |
 | <a name="input_tg_health_check"></a> [tg\_health\_check](#input\_tg\_health\_check) | The default target group's health check configuration, will be merged over the default (see locals.tf) | `map(string)` | `{}` | no |
 | <a name="input_tg_name"></a> [tg\_name](#input\_tg\_name) | The default target group's name, will override the default <service\_name>-default name | `string` | `""` | no |
@@ -99,6 +96,7 @@ No requirements.
 | <a name="input_tg_tags"></a> [tg\_tags](#input\_tg\_tags) | The additional Target Group tags that will be merged over the default tags | `map(string)` | `{}` | no |
 | <a name="input_tg_target_type"></a> [tg\_target\_type](#input\_tg\_target\_type) | The type of target that you must specify when registering targets with this target group. | `string` | `"instance"` | no |
 | <a name="input_vpc_id"></a> [vpc\_id](#input\_vpc\_id) | The default target group's VPC | `string` | n/a | yes |
+
 ## Outputs
 
 | Name | Description |
