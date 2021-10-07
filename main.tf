@@ -109,19 +109,21 @@ resource "aws_lb_listener_rule" "main" {
   }
 
   dynamic "condition" {
-    for_each = [var.listener_conditions[count.index]]
+    for_each = var.listener_conditions[count.index]
     content {
       dynamic "host_header" {
-        for_each = lookup(condition.value, "host_header", null) != null ? [" using host header "] : []
+        for_each = condition.value.field == "host-header" ? [condition.value.field] : []
         content {
-          values = lookup(condition.value, "host_header")
+          values = condition.value.values
         }
+
       }
 
       dynamic "path_pattern" {
-        for_each = lookup(condition.value, "path_pattern", null) != null ? [" using path pattern "] : []
+        for_each = condition.value.field == "path-pattern" ? [condition.value.field] : []
         content {
-          values = lookup(condition.value, "path_pattern")
+          values = condition.value.values
+
         }
       }
     }
