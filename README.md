@@ -95,6 +95,7 @@ The latest stable version of Terraform which this module tested working is Terra
 | <a name="input_tg_port"></a> [tg\_port](#input\_tg\_port) | The default target group's port | `string` | `5000` | no |
 | <a name="input_tg_protocol"></a> [tg\_protocol](#input\_tg\_protocol) | The default target group's protocol | `string` | `"HTTP"` | no |
 | <a name="input_tg_protocol_version"></a> [tg\_protocol\_version](#input\_tg\_protocol\_version) | The default target group's protocol version | `string` | `"HTTP1"` | no |
+| <a name="input_tg_slow_start"></a> [tg\_slow\_start](#input\_tg\_slow\_start) | Amount time for targets to warm up before the load balancer sends them a full share of requests. The range is 30-900 seconds or 0 to disable. The default value is 0 seconds. | `string` | `0` | no |
 | <a name="input_tg_stickiness"></a> [tg\_stickiness](#input\_tg\_stickiness) | The default target group's stickiness configuration | `map(string)` | <pre>{<br>  "cookie_duration": 1,<br>  "enabled": true,<br>  "type": "lb_cookie"<br>}</pre> | no |
 | <a name="input_tg_tags"></a> [tg\_tags](#input\_tg\_tags) | The additional Target Group tags that will be merged over the default tags | `map(string)` | `{}` | no |
 | <a name="input_tg_target_type"></a> [tg\_target\_type](#input\_tg\_target\_type) | The type of target that you must specify when registering targets with this target group. | `string` | `"instance"` | no |
