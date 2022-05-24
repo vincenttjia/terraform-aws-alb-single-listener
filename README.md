@@ -85,7 +85,7 @@ The latest stable version of Terraform which this module tested working is Terra
 | <a name="input_listener_certificate_arn"></a> [listener\_certificate\_arn](#input\_listener\_certificate\_arn) | The LB listener's certificate ARN | `string` | n/a | yes |
 | <a name="input_listener_port"></a> [listener\_port](#input\_listener\_port) | The LB listener's port | `string` | `443` | no |
 | <a name="input_listener_protocol"></a> [listener\_protocol](#input\_listener\_protocol) | The LB listener's protocol | `string` | `"HTTPS"` | no |
-| <a name="input_listener_rules"></a> [listener\_rules](#input\_listener\_rules) | A map of listener rules for the LB: priority --> {target\_group\_arn:'', conditions:[]}. 'target\_group\_arn:null' means the built-in target group | `map` | `{}` | no |
+| <a name="input_listener_rules"></a> [listener\_rules](#input\_listener\_rules) | A map of listener rules for the LB: priority --> {target\_group\_arn:'', conditions:[]}. 'target\_group\_arn:null' means the built-in target group | `map(any)` | `{}` | no |
 | <a name="input_listener_ssl_policy"></a> [listener\_ssl\_policy](#input\_listener\_ssl\_policy) | The LB listener's SSL policy | `string` | `"ELBSecurityPolicy-2016-08"` | no |
 | <a name="input_product_domain"></a> [product\_domain](#input\_product\_domain) | Abbreviation of the product domain the created resources belong to | `string` | n/a | yes |
 | <a name="input_service_name"></a> [service\_name](#input\_service\_name) | The service name that will be used in tags and resources default name | `string` | n/a | yes |
